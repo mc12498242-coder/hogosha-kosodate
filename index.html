@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7f3eb">
+  <title>保護者向け AI相談コマンド［子育て］</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 30px 16px;
+      font-family: "Yu Gothic", "Meiryo", sans-serif;
+      background: #f7f3eb;
+      color: #59483a;
+      line-height: 1.8;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      padding: 30px 15px 35px;
+      background: linear-gradient(135deg, #f1e8d9, #fffaf1);
+      border: 1px solid #e9dfcf;
+      border-radius: 24px;
+      margin-bottom: 28px;
+    }
+
+    .subtitle {
+      font-size: 16px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    h1 {
+      font-size: clamp(25px, 5vw, 38px);
+      line-height: 1.5;
+      margin: 8px 0;
+      color: #73523e;
+    }
+
+    h1 span {
+      color: #984b47;
+    }
+
+    .category {
+      display: inline-block;
+      background: #9d7760;
+      color: white;
+      border-radius: 30px;
+      padding: 3px 25px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .intro {
+      margin: 18px 0 0;
+      font-size: 15px;
+    }
+
+    .notice {
+      background: #fffdf8;
+      border: 1px solid #e9dfcf;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 22px;
+      font-size: 14px;
+    }
+
+    .notice-title {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 6px;
+      color: #795b47;
+    }
+
+    /* 3つのカードは同じクリーム色で統一 */
+    .command-card {
+      padding: 22px;
+      margin-bottom: 18px;
+      border-radius: 20px;
+      background: #fffdf9;
+      border: 1px solid #e9e1d5;
+      box-shadow: 0 3px 10px rgba(93, 69, 47, 0.035);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      margin-bottom: 14px;
+    }
+
+    .number {
+      display: flex;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 50%;
+      background: #a34f4b;
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: 19px;
+      line-height: 1.6;
+      margin: 0;
+      color: #654c3b;
+    }
+
+    .command-text {
+      background: #fffefa;
+      border: 1px solid #ece5da;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 14px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      color: #493f38;
+    }
+
+    /* ボタンは渋めの赤で統一 */
+    button {
+      display: block;
+      width: 100%;
+      margin-top: 14px;
+      padding: 14px;
+      border: 1px solid #934440;
+      border-radius: 12px;
+      background: #a34f4b;
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    button:hover {
+      background: #873d39;
+    }
+
+    button:active {
+      transform: scale(0.99);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #73523e;
+      outline-offset: 3px;
+    }
+
+    .message {
+      min-height: 1.8em;
+      margin: 8px 0 0;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+      color: #873d39;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 0 8px;
+      color: #93816e;
+      font-size: 12px;
+    }
+
+    @media (min-width: 650px) {
+      .command-card {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 180px;
+        gap: 0 22px;
+        align-items: center;
+      }
+
+      .card-heading {
+        grid-column: 1 / -1;
+      }
+
+      .command-text {
+        align-self: stretch;
+      }
+
+      .copy-area {
+        align-self: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      header {
+        padding: 25px 12px;
+      }
+
+      .command-card {
+        padding: 16px;
+      }
+
+      .card-heading {
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .number {
+        width: 36px;
+        height: 36px;
+        font-size: 19px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+
+      .command-text {
+        padding: 12px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+
+    <header>
+      <div class="subtitle">保護者向け</div>
+      <h1><span>AI</span>相談コマンド</h1>
+      <div class="category">［子育て］</div>
+
+      <p class="intro">
+        子育ての悩みや不安を、AIに相談してみませんか？<br>
+        あなたの気持ちに合った相談方法を選んでみましょう。
+      </p>
+    </header>
+
+    <div class="notice">
+      <div class="notice-title">🌷 使い方</div>
+      ① 3つのタイプから、自分に合ったコマンドを選びます。<br>
+      ② それぞれの「コピー」ボタンを押すと、そのコマンドがクリップボードにコピーされます。<br>
+      ③ コピーした文章をAIに貼り付け、「相談者：[ここに悩みを書く]」の部分を自分の悩みに書き換えて送信してください。
+    </div>
+
+    <!-- ① 共感型 -->
+    <section class="command-card">
+      <div class="card-heading">
+        <div class="number">1</div>
+        <h2>①共感型：あなたの気持ちに寄り添い、「聞き役」へ徹してくれます。</h2>
+      </div>
+
+      <div class="command-text" id="command1"># MODE: EMOTION_REFRESH
+[TASK]
+子育てに悩む保護者の気持ちを、全力で受け止めて慰めてください。
+[RULE]
+・相談者を責めない。
+・正論、説教、アドバイスは禁止。
+・気持ちを否定せず、優しく共感する。
+[OUTPUT]
+最後に愚痴を話しやすくする質問を1つだけしてください。
+[禁止]
+・「【】」は使わない。
+・見出しやラベルは表示しない。
+---
+相談者：[ここに悩みを書く]</div>
+
+      <div class="copy-area">
+        <button type="button"
+          onclick="copyCommand('command1', 'message1')">
+          📋 コピー
+        </button>
+        <p class="message" id="message1" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ② 整理型 -->
+    <section class="command-card">
+      <div class="card-heading">
+        <div class="number">2</div>
+        <h2>②整理型：あなたの悩みや気持ちに寄り添いながら、今の思いを整理します。</h2>
+      </div>
+
+      <div class="command-text" id="command2"># MODE: CONCERN_SUMMARY
+[TASK]
+保護者の子育ての悩みを、気持ちに寄り添いながら自然に整理してください。
+[RULE]
+・責めない、説教しない、アドバイスしない。
+・書かれている内容だけを整理し、推測や診断はしない。
+[OUTPUT]
+悩み・気持ち・本当はどうしたいのかを、自然な文章にまとめてください。
+最後に質問を1つだけしてください。
+「【】」や見出しは使わない。
+---
+相談者：[ここに悩みを書く]</div>
+
+      <div class="copy-area">
+        <button type="button"
+          onclick="copyCommand('command2', 'message2')">
+          📋 コピー
+        </button>
+        <p class="message" id="message2" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- ③ 解決型 -->
+    <section class="command-card">
+      <div class="card-heading">
+        <div class="number">3</div>
+        <h2>③解決型：あなたの悩みに寄り添い、具体的な解決方法を提案します。</h2>
+      </div>
+
+      <div class="command-text" id="command3"># MODE: PARENT_SUPPORT
+[TASK]
+保護者の子育ての悩みに寄り添い、具体的で実行しやすい解決策を提案してください。
+[RULE]
+・気持ちを受け止め、責めたり説教、推測や診断をしたりしない。
+・悩みに合った現実的な解決策を分かりやすく伝える。
+[OUTPUT]
+共感 → 解決策 → 最後に質問1つ、の順で自然に回答してください。
+「【】」や見出しは使わない。
+---
+相談者：[ここに悩みを書く]</div>
+
+      <div class="copy-area">
+        <button type="button"
+          onclick="copyCommand('command3', 'message3')">
+          📋 コピー
+        </button>
+        <p class="message" id="message3" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <footer>
+      子育てに悩んだときは、ひとりで抱え込まずに相談してみましょう。
+    </footer>
+
+  </main>
+
+  <script>
+    async function copyCommand(commandId, messageId) {
+      const command = document.getElementById(commandId);
+      const message = document.getElementById(messageId);
+      const text = command.innerText;
+
+      document.querySelectorAll(".message").forEach(function (item) {
+        item.textContent = "";
+      });
+
+      try {
+        if (!navigator.clipboard ||
+            !navigator.clipboard.writeText) {
+          throw new Error("Clipboard API is unavailable");
+        }
+
+        await navigator.clipboard.writeText(text);
+        message.textContent = "✓ コピーしました！";
+      } catch (error) {
+        const area = document.createElement("textarea");
+        area.value = text;
+        area.setAttribute("readonly", "");
+        area.style.position = "fixed";
+        area.style.left = "-9999px";
+        area.style.top = "0";
+
+        document.body.appendChild(area);
+        area.select();
+        area.setSelectionRange(0, area.value.length);
+
+        try {
+          const success = document.execCommand("copy");
+
+          message.textContent = success
+            ? "✓ コピーしました！"
+            : "コピーできません。文章を選択してコピーしてください。";
+        } catch (e) {
+          message.textContent =
+            "コピーできません。文章を選択してコピーしてください。";
+        } finally {
+          area.remove();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
